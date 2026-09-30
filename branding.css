@@ -1,0 +1,10 @@
+.site-header .brand{font-size:14px;letter-spacing:-.6px;white-space:nowrap}
+.footer-brand{font-size:11px;letter-spacing:-.4px;white-space:nowrap}
+.topbar .brand{font-size:13px;letter-spacing:-.4px;white-space:nowrap}
+@media(max-width:620px){
+  .site-header .brand{font-size:11px;letter-spacing:-.4px;gap:6px;white-space:normal}
+  .header-cta{font-size:0}
+  .header-cta::before{content:"Book";font-size:10px}
+  .footer-brand{font-size:10px}
+}
+@media(max-width:440px){.topbar .brand{font-size:10px}}
