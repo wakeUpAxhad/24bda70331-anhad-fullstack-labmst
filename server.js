@@ -13,9 +13,19 @@ const staticFiles = new Map([
   ['/index.html', ['index.html', 'text/html; charset=utf-8']],
   ['/styles.css', ['styles.css', 'text/css; charset=utf-8']],
   ['/branding.css', ['branding.css', 'text/css; charset=utf-8']],
-  ['/script.js', ['script.js', 'text/javascript; charset=utf-8']]
+  ['/script.js', ['script.js', 'text/javascript; charset=utf-8']],
+  ['/doctors.css', ['doctors.css', 'text/css; charset=utf-8']],
+  ['/receipt', ['receipt.html', 'text/html; charset=utf-8']],
+  ['/receipt.html', ['receipt.html', 'text/html; charset=utf-8']],
+  ['/receipt.css', ['receipt.css', 'text/css; charset=utf-8']],
+  ['/receipt.js', ['receipt.js', 'text/javascript; charset=utf-8']]
 ]);
 let writeQueue = Promise.resolve();
+const doctors = {
+  'maya-patel': { name: 'Dr. Maya Patel', specialty: 'Family medicine' },
+  'arjun-mehta': { name: 'Dr. Arjun Mehta', specialty: 'Internal medicine' },
+  'leena-shah': { name: 'Dr. Leena Shah', specialty: 'Wellbeing' }
+};
 
 function sendJson(response, status, body) {
   response.writeHead(status, {
@@ -49,11 +59,13 @@ function validate(input) {
   const phone = typeof input.phone === 'string' ? input.phone.trim() : '';
   const email = typeof input.email === 'string' ? input.email.trim() : '';
   const reason = typeof input.reason === 'string' ? input.reason.trim() : '';
+  const doctor = doctors[input.doctor];
   if (name.length < 2 || name.length > 100) return 'Please enter a name between 2 and 100 characters.';
   if (!/^\+?[0-9 ()().-]{7,20}$/.test(phone)) return 'Please enter a valid phone number.';
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Please enter a valid email address.';
+  if (!doctor) return 'Please choose one of the listed clinicians.';
   if (reason.length < 5 || reason.length > 3000) return 'Please describe your reason in 5 to 3,000 characters.';
-  return { name, phone, email, reason };
+  return { name, phone, email, doctor, reason };
 }
 
 async function readRecords() {
@@ -92,9 +104,11 @@ const server = http.createServer(async (request, response) => {
       }
       const result = validate(await readRequest(request));
       if (typeof result === 'string') return sendJson(response, 400, { error: result });
-      const record = { id: crypto.randomUUID(), ...result, createdAt: new Date().toISOString() };
+      const createdAt = new Date().toISOString();
+      const requestId = `HCS-${createdAt.slice(0, 10).replaceAll('-', '')}-${crypto.randomBytes(5).toString('hex').toUpperCase()}`;
+      const record = { id: requestId, ...result, createdAt };
       await saveRecord(record);
-      return sendJson(response, 201, { id: record.id, name: record.name });
+      return sendJson(response, 201, { id: record.id, name: record.name, doctor: record.doctor, createdAt: record.createdAt });
     }
     if (url.pathname.startsWith('/api/')) return sendJson(response, 404, { error: 'Not found.' });
     if (url.pathname === '/admin' || url.pathname.startsWith('/admin/')) {

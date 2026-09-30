@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="branding.css">
+  <link rel="stylesheet" href="doctors.css">
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -20,7 +21,7 @@
       <span>Healthcare Consultation System</span>
     </a>
     <nav class="main-nav" aria-label="Main navigation">
-      <a href="#care">Our care</a><a href="#how-it-works">How it works</a><a href="#about">About us</a>
+      <a href="#care">Our care</a><a href="#doctors">Meet doctors</a><a href="#how-it-works">How it works</a><a href="#about">About us</a>
     </nav>
     <a class="header-cta" href="#book">Book a consultation <span aria-hidden="true">↗</span></a>
     <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
@@ -46,16 +47,26 @@
 
     <section class="care-strip" id="care"><div class="strip-label">HERE FOR YOUR<br>WHOLE HEALTH</div><div class="care-item"><span class="care-icon">✳</span><span>Everyday<br>wellness</span></div><div class="care-item"><span class="care-icon">⌁</span><span>Mind &amp;<br>mood</span></div><div class="care-item"><span class="care-icon">♡</span><span>Ongoing<br>conditions</span></div><div class="care-item"><span class="care-icon">＋</span><span>Something<br>on your mind?</span></div><a href="#book" class="strip-link">Let's talk <span>↗</span></a></section>
 
+    <section class="doctors-section" id="doctors">
+      <div class="doctors-heading"><div><div class="eyebrow"><span class="status-dot"></span> YOUR CARE TEAM</div><h2>Meet the people<br>here for <em>you.</em></h2></div><p>Choose a clinician for your consultation request. These are sample profiles for the local demo.</p></div>
+      <div class="doctor-grid">
+        <article class="doctor-card"><div class="doctor-portrait portrait-one" aria-hidden="true"><span>MP</span><i>✳</i></div><div class="doctor-details"><span class="doctor-specialty">FAMILY MEDICINE</span><h3>Dr. Maya Patel</h3><p>Preventive care and everyday health concerns.</p><a href="#book" data-select-doctor="maya-patel">Request with Maya <span>↗</span></a></div></article>
+        <article class="doctor-card"><div class="doctor-portrait portrait-two" aria-hidden="true"><span>AM</span><i>✳</i></div><div class="doctor-details"><span class="doctor-specialty">INTERNAL MEDICINE</span><h3>Dr. Arjun Mehta</h3><p>Health check-ins and ongoing conditions.</p><a href="#book" data-select-doctor="arjun-mehta">Request with Arjun <span>↗</span></a></div></article>
+        <article class="doctor-card"><div class="doctor-portrait portrait-three" aria-hidden="true"><span>LS</span><i>✳</i></div><div class="doctor-details"><span class="doctor-specialty">WELLBEING</span><h3>Dr. Leena Shah</h3><p>Support for stress, sleep, and emotional wellbeing.</p><a href="#book" data-select-doctor="leena-shah">Request with Leena <span>↗</span></a></div></article>
+      </div>
+    </section>
+
     <section class="booking-section" id="book">
       <div class="booking-intro"><div class="eyebrow"><span class="status-dot"></span> YOUR FIRST STEP</div><h2>Let’s start<br>with <em>you.</em></h2><p>Tell us a little about yourself and what’s on your mind. Submit a consultation request to get started.</p><div class="privacy-note"><span>◎</span><span><strong>Your details stay yours.</strong><br>We treat your information with care and confidentiality.</span></div><div class="support-line"><span class="support-symbol">↗</span><span>Questions before booking?<br><a href="mailto:hello@healthcareconsultation.example">We’re happy to help.</a></span></div></div>
-      <div class="form-card"><div class="form-heading"><span class="step-label">A GOOD PLACE TO BEGIN</span><span class="step-count">01 <span>/ 01</span></span></div><h3>Request a consultation</h3><p class="form-description">We’ll reach out within one business day.</p>
+      <div class="form-card"><div class="form-heading"><span class="step-label">A GOOD PLACE TO BEGIN</span><span class="step-count">01 <span>/ 01</span></span></div><h3>Request a consultation</h3><p class="form-description">Your request is saved locally and gets its own receipt.</p>
         <form id="booking-form">
           <div class="field-row"><label class="field"><span>YOUR NAME</span><input name="name" autocomplete="name" placeholder="e.g. Jordan Lee" required minlength="2"></label><label class="field"><span>PHONE NUMBER</span><input name="phone" type="tel" autocomplete="tel" placeholder="(555) 000-0000" pattern="\+?[0-9\s\(\)\.\-]{7,20}" title="Enter a phone number using digits, spaces, parentheses, dots, or hyphens." required></label></div>
           <label class="field"><span>EMAIL ADDRESS</span><input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+          <label class="field"><span>CHOOSE A CLINICIAN</span><select name="doctor" required><option value="" disabled selected>Select a clinician</option><option value="maya-patel">Dr. Maya Patel · Family medicine</option><option value="arjun-mehta">Dr. Arjun Mehta · Internal medicine</option><option value="leena-shah">Dr. Leena Shah · Wellbeing</option></select></label>
           <label class="field"><span>WHAT WOULD YOU LIKE TO TALK ABOUT?</span><textarea name="reason" rows="4" placeholder="Share as much or as little as you’d like…" required minlength="5"></textarea></label>
-          <label class="consent"><input type="checkbox" required><span>It’s okay to contact me about my consultation request.</span></label>
+          <label class="consent"><input type="checkbox" required><span>I understand this request does not confirm an appointment.</span></label>
           <button class="button button-dark submit-button" type="submit">Request my consultation <span aria-hidden="true">↗</span></button>
-          <p class="form-fineprint">By submitting, you agree to be contacted by our care team. Please don’t include urgent or emergency information.</p>
+          <p class="form-fineprint">This local demo does not contact clinicians or schedule appointments. Please don’t include urgent or emergency information.</p>
           <div class="form-message" id="form-message" role="status" aria-live="polite"></div>
         </form>
       </div>
